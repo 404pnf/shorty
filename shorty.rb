@@ -3,7 +3,8 @@ require "redis"
 require "hiredis"
 require "uri"
 
-$redis = Redis.new :driver => :hiredis
+uri = URI.parse(ENV['REDISTOGO_URL'])
+$redis = Redis.new(:driver => :hiredis, :host => uri.host, :port => uri.port, :password => uri.password)
 
 class Url
   def initialize(url) @url = url end
